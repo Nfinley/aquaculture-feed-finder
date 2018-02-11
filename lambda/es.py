@@ -30,7 +30,11 @@ def post_to_es(body, id):
 def get_from_es():
     index = conf.INDEX
     _type = conf.TYPE
-    res = es.get(index=index, doc_type=_type)
+    res = es.search(
+            index=index,
+            doc_type=_type,
+            body={"query": {"match_all": {}}},
+            )
     return res['hits']['hits']
 
 def delete_all():
