@@ -23,8 +23,12 @@
 }
 
 @keyframes App-logo-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .margin {
@@ -35,3 +39,39 @@
     margin: 50px 50px
 }
 
+form {
+    border-style: outset;
+    padding: 20px 100px;
+    border-radius: 5px;
+}
+
+.container {
+    margin-top: 20px;
+    display: flex;
+    /* Then we define the flow direction 
+     and if we allow the items to wrap 
+   * Remember this is the same as:
+   * flex-direction: row;
+   * flex-wrap: wrap;
+   */
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.fishTypeForm {
+    padding: 5px;
+    height: 100px;
+    margin-top: 5px;
+}
+
+.lifeStageTypeForm {
+    padding: 5px;
+    height: 100px;
+    margin-top: 5px;
+}
+
+.locationForm {
+    padding: 10px;
+    height: 100px;
+    margin-top: 5px;
+} 

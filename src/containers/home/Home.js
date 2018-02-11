@@ -52,18 +52,13 @@ class Home extends Component {
 
     render() {
         return (
-            <div className="">
-                <Grid >
-                    <Row className="show-grid">
-                        <Col xs={6} md={4}>
-                        </Col>
-                    </Row>
-                    {/*Content will live in this block*/}
-                    <Row className="show-grid">
-                        <Col xs={6} md={4}>
+            <div className="container">
+                
+             
                             <form
                                 onSubmit={this.handleSubmit}>
                                 <FormGroup>
+                                    <div className="fishTypeForm">
                                     {/*1st Select Box for Type of fish farmed*/}
                                     <ControlLabel>What are you farming?</ControlLabel>
                                     <FormControl
@@ -79,6 +74,8 @@ class Home extends Component {
                                         <option value="Pacific White Shrimp">Pacific White Shrimp</option>
                                         <option value="Giant Tiger Shrimp">Giant Tiger Shrimp</option>
                                     </FormControl>
+                                 </div>
+                                 <div className="lifeStageTypeForm">
                                     <ControlLabel>Select a lifestage</ControlLabel>
                                     <FormControl
                                         id="fishLifeStage"
@@ -93,6 +90,8 @@ class Home extends Component {
                                         <option value="Fingerling">Fingerling</option>
                                         <option value="Production">Production</option>
                                     </FormControl>
+                              </div>
+                              <div className="locationForm">
                                     <ControlLabel>Country of Origin</ControlLabel>
                                     <FormControl
                                         id="formControlsText"
@@ -101,16 +100,12 @@ class Home extends Component {
                                         placeholder="Enter Country of Origin"
                                         onChange={this.handleLocationChange}
                                     />
+                                    </div>
                                     <Button bsStyle="primary" type="submit">Search</Button>
                                 </FormGroup>
                             </form>
-                        </Col>
-                    </Row>
-                    <Row className="show-grid">
-                        <Col xs={6} md={4}>
-                        </Col>
-                    </Row>
-                </Grid>
+               
+                
             </div>
         );
     }
