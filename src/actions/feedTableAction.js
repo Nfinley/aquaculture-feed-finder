@@ -22,21 +22,27 @@ function processFeedData(responseData) {
             if (text.includes('fish meal' || 'fish oil')) {
                 hasFishMeal = true;
                 return;
+            } else {
+                hasFishMeal = 'No Fish Meal'
             }
         });
         console.log("HAS FISH MEAL: ", hasFishMeal);
-        let noCert = false;
-        field.certifications !== null && field.certifications.map(cert => {
-            if(cert !== '' || cert !== null){
-                noCert = true;
-                return;
-            }
-        });
+        let noCert = field.certifications !== '' || field.certifications !== null ? true : false;
+        // field.certifications !== null && field.certifications.map(cert => {
+        //     if(cert !== '' || cert !== null){
+        //         noCert = true;
+        //         return;
+        //     }
+        // });
         let susRating;
         if(!hasFishMeal && noCert){
             susRating = 'Unkown';
-        } else if (!hasFishMeal){
-
+        } else if (hasFishMeal && !noCert){
+            susRating = 1;
+        } else if (hasFishMeal && noCert){
+            susRating = 2;
+        } else if(hasFishMeal === 'No Fish Meal'){
+            susRating = 3;
         }
         // 1= fishmeal no rating
         // 2= cert and fishmeal
@@ -48,7 +54,7 @@ function processFeedData(responseData) {
             supported_species: speciesName || 'Contact Supplier',
             lifestage: field.fish_lifestage || 'Contact Supplier',
             cost: field.cost_per_kg || 'Contact Supplier',
-            sustainability_rating: field.sustainability_rating || Math.floor(Math.random() * Math.floor(6)),
+            sustainability_rating: field.sustainability_rating || susRating,
             certifications: field.certifications,
             location: field.supplier_location,
             protein_percentage: field.protein_percentage,
