@@ -31,7 +31,7 @@ def post_to_es(body, id):
         )
 
 
-def get__all():
+def get_all():
     res = es.search(
         index=conf.INDEX,
         doc_type=conf.TYPE,
@@ -41,54 +41,25 @@ def get__all():
 
 
 def search_es(species=None, lifestage=None, location=None):
-    query = {
-        "query": {
-            "bool": {
-                "must": []
-                }
-            }
-        }
-    if species:
-        query['query']['filtered'] = {
-            'filter': {
-                'terms': {
-                    'supported_species': [
-                        species,
-                        ]
-                    }
-                }
-            }
-    if lifestage:
-        query['query']['bool'].setdefault('should', [])
-        query['query']['bool']['should'].append({
-            "term": {
-                "fish_lifestage": lifestage
-                }
-            })
-        query['query']['bool']['should'].append({
-            "term": {
-                "fish_lifestage": ""
-                }
-            })
-        query['query']['bool']['should'].append({
-            "term": {
-                "fish_lifestage": "All"
-                }
-            })
-    if location:
-        query['query']['bool']['must'].append(
-            {'match': {
-                'supplier_location': location
-                }
-            })
-
-    print(query)
-    res = es.search(
-        index=conf.INDEX,
-        doc_type=conf.TYPE,
-        body=query,
-        )
-    return res
+    res = get_all()
+    data = []
+    for item in res:
+        keep = True
+        if species:
+            item_species = item['_source']['supported_species']
+            if species.lower() not in item_species.lower():
+                keep = False
+        if lifestage:
+            item_lifestage = item['_source']['fish_lifestage']
+            if item_lifestage.lower() not in [lifestage.lower(), '', 'all']:
+                keep = False
+        if location:
+            item_location = item['_source']['supplier_location']
+            if item_location.lower() != location.lower():
+                keep = False
+        if keep:
+            data.append(item)
+    return data
 
 
 def delete_all():
