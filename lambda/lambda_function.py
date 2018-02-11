@@ -3,4 +3,5 @@ import es
 
 
 def lambda_handler(event, context):
-    return respond(None, {'status': 'OK'})
+    res = es.get_from_es()
+    return respond(None, res)

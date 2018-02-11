@@ -1,0 +1,6 @@
+# ElasticSearch
+HOST='search-jjjjjjjjjjjjjjjjj.es.amazonaws.com'
+REGION='us-northeast-3'
+KEY='qqqqqqqqqqqqqqqqqq'
+SECRET='qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
+
