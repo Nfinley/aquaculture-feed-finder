@@ -8,7 +8,7 @@
 }
 
 .App-header {
-    background-color: #222;
+    background-color: black;
     height: 150px;
     padding: 20px;
     color: white;
@@ -32,7 +32,7 @@
 }
 
 .margin {
-    margin: 50px 10px
+    margin: 50px 10px;
 }
 
 .table-margin {
@@ -45,15 +45,21 @@ form {
     border-radius: 5px;
 }
 
+/*Grey Background 
+
+/* body {
+    background: #c0c0c0;
+} */
+
+/*OJ background
+
+/* body {
+    background: #ff872b;
+} */
+
 .container {
     margin-top: 20px;
     display: flex;
-    /* Then we define the flow direction 
-     and if we allow the items to wrap 
-   * Remember this is the same as:
-   * flex-direction: row;
-   * flex-wrap: wrap;
-   */
     flex-flow: row wrap;
     justify-content: space-around;
 }
@@ -74,4 +80,4 @@ form {
     padding: 10px;
     height: 100px;
     margin-top: 5px;
-} 
+}

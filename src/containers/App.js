@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom'
 import Home from './home/Home';
 import FeedDashboard from './feed-view/FeedDashboard';
-import logo from '../fish.png';
+import logo from '../fish3.png';
 // import './App.css';
 
 
