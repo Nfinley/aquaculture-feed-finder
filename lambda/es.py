@@ -22,11 +22,16 @@ es = Elasticsearch(
         connection_class=RequestsHttpConnection,
         )
 
-def post_to_es(doc):
-    _index = str(uuid.uuid4())
-    _type = 'feeds'
-    es.index(index=_index, doc_type=_type, body=doc)
+def post_to_es(body, id):
+    _type = conf.TYPE
+    _index = conf.INDEX
+    es.index(index=_index, doc_type=_type, id=id, body=body)
 
 def get_from_es():
-    return es.info()
+    index = conf.INDEX
+    _type = conf.TYPE
+    return es.get(index=index, doc_type=__type)
+
+def delete_all():
+    return es.delete_by_query(index='_all', body='')
 
