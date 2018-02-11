@@ -23,11 +23,13 @@ class Home extends Component {
         this.state = {
             fishType: '',
             fishLifeStage: '',
-            location: ''
+            location: '',
+            error: null
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleLocationChange = this.handleLocationChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getValidationState = this.getValidationState.bind(this);
     }
 
     handleClick(event) {
@@ -45,19 +47,29 @@ class Home extends Component {
         const {fishType, fishLifeStage, location} = this.state;
         event.preventDefault();
         //    Will take all data from state and submit the information to the api call
-        fetchFeeds(fishLifeStage, fishType, location)
-            .then(()=> changePage())
+        if(this.state.error === null){
+            fetchFeeds(fishType, fishLifeStage, location)
+                .then(()=> changePage())
+        }
+
+    }
+    getValidationState() {
+        const length = this.state.location.length;
+        if (length > 10) return 'success';
+        else if (length > 5) return 'warning';
+        else if (length > 0) return 'error';
+        return null;
     }
 
 
     render() {
         return (
             <div className="container">
-                
-             
                             <form
                                 onSubmit={this.handleSubmit}>
-                                <FormGroup>
+                                <FormGroup
+                                    validationState={this.state.error}
+                                >
                                     <div className="fishTypeForm">
                                     {/*1st Select Box for Type of fish farmed*/}
                                     <ControlLabel>What are you farming?</ControlLabel>
@@ -71,8 +83,8 @@ class Home extends Component {
                                         <option value="Salmon">Salmon</option>
                                         <option value="Tilapia">Tilapia</option>
                                         <option value="Catfish">Catfish</option>
-                                        <option value="Pacific White Shrimp">Pacific White Shrimp</option>
-                                        <option value="Giant Tiger Shrimp">Giant Tiger Shrimp</option>
+                                        <option value="Shrimp">Shrimp</option>
+                                        <option value="Trout">Trout</option>
                                     </FormControl>
                                  </div>
                                  <div className="lifeStageTypeForm">

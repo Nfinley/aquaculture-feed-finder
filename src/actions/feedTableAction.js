@@ -1,6 +1,4 @@
 import reduxContants from '../reduxContants';
-import axios from 'axios';
-// import fetch from 'whatwg-fetch';
 
 export function feedDataSuccess(data) {
     return {
@@ -10,43 +8,39 @@ export function feedDataSuccess(data) {
 }
 
 //THUNKS
-
 function processFeedData(responseData) {
     const feedData = responseData.data;
     let dataArray = [];
     feedData.map(field => {
-        console.log(field);
-        const speciesName = field.supported_species.toString().replace(/,/g, ', ')
-        let hasFishMeal = false;
-        field.composition !== null && field.composition.map(text => {
-            if (text.includes('fish meal' || 'fish oil')) {
-                hasFishMeal = true;
-                return;
-            } else {
-                hasFishMeal = 'No Fish Meal'
-            }
-        });
-        console.log("HAS FISH MEAL: ", hasFishMeal);
-        let noCert = field.certifications !== '' || field.certifications !== null ? true : false;
+        const speciesName = field.supported_species.toString().replace(/;/g, ', ')
+
+        // Generates the sus rating based on certs and composition
+        // let hasFishMeal = false;
+        // field.composition !== null && field.composition.map(text => {
+        //     if (text.includes('fish meal' || 'fish oil')) {
+        //         hasFishMeal = true;
+        //         return;
+        //     } else {
+        //         hasFishMeal = 'No Fish Meal'
+        //     }
+        // });
+        // let noCert = field.certifications !== '' || field.certifications !== null ? true : false;
         // field.certifications !== null && field.certifications.map(cert => {
         //     if(cert !== '' || cert !== null){
         //         noCert = true;
         //         return;
         //     }
         // });
-        let susRating;
-        if(!hasFishMeal && noCert){
-            susRating = 'Unkown';
-        } else if (hasFishMeal && !noCert){
-            susRating = 1;
-        } else if (hasFishMeal && noCert){
-            susRating = 2;
-        } else if(hasFishMeal === 'No Fish Meal'){
-            susRating = 3;
-        }
-        // 1= fishmeal no rating
-        // 2= cert and fishmeal
-        // 3= no fishmeal
+        // let susRating;
+        // if(!hasFishMeal && noCert){
+        //     susRating = 'Unkown';
+        // } else if (hasFishMeal && !noCert){
+        //     susRating = 1;
+        // } else if (hasFishMeal && noCert){
+        //     susRating = 2;
+        // } else if(hasFishMeal === 'No Fish Meal'){
+        //     susRating = 3;
+        // }
 
         let newRow = {
             feed_name: field.feed_name,
@@ -54,11 +48,11 @@ function processFeedData(responseData) {
             supported_species: speciesName || 'Contact Supplier',
             lifestage: field.fish_lifestage || 'Contact Supplier',
             cost: field.cost_per_kg || 'Contact Supplier',
-            sustainability_rating: field.sustainability_rating || susRating,
+            sustainability_rating: field.sustainability_rating || 'Unknown',
             certifications: field.certifications,
             location: field.supplier_location,
             protein_percentage: field.protein_percentage,
-            supplier_link: field.supplier_link || 'N/A',
+            supplier_contact: field.supplier_contact || 'N/A',
         }
         dataArray.push(newRow);
     })

@@ -74,4 +74,16 @@ form {
     padding: 10px;
     height: 100px;
     margin-top: 5px;
-} 
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+}
+.back-button {
+    margin-top: 50px;
+}
+
+.list {
+    color: lightslategrey;
+}
