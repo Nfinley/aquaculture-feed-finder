@@ -17,7 +17,7 @@ export class FeedDashboard extends Component {
                 <TableHeaderColumn dataField='supported_species' dataSort={ true } width='150px'>Supported Species</TableHeaderColumn>
                 <TableHeaderColumn dataField='lifestage' dataSort={ true }>Life Stage</TableHeaderColumn>
                 <TableHeaderColumn dataField='cost' dataSort={ true }>Cost/kg</TableHeaderColumn>
-                <TableHeaderColumn dataField='sustainability_rating'>Sustainability Rating</TableHeaderColumn>
+                <TableHeaderColumn dataField='sustainability_rating' width='170px'>Sustainability Rating</TableHeaderColumn>
                 <TableHeaderColumn dataField='certifications' dataSort={ true }>Certifications</TableHeaderColumn>
                 <TableHeaderColumn dataField='location' dataSort={ true }>Location</TableHeaderColumn>
                 <TableHeaderColumn dataField='protein_percentage' dataSort={ true }>Protein %</TableHeaderColumn>

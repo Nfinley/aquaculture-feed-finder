@@ -16,10 +16,36 @@ function processFeedData(responseData) {
     let dataArray = [];
     feedData.map(field => {
         console.log(field);
+        const speciesName = field.supported_species.toString().replace(/,/g, ', ')
+        let hasFishMeal = false;
+        field.composition !== null && field.composition.map(text => {
+            if (text.includes('fish meal' || 'fish oil')) {
+                hasFishMeal = true;
+                return;
+            }
+        });
+        console.log("HAS FISH MEAL: ", hasFishMeal);
+        let noCert = false;
+        field.certifications !== null && field.certifications.map(cert => {
+            if(cert !== '' || cert !== null){
+                noCert = true;
+                return;
+            }
+        });
+        let susRating;
+        if(!hasFishMeal && noCert){
+            susRating = 'Unkown';
+        } else if (!hasFishMeal){
+
+        }
+        // 1= fishmeal no rating
+        // 2= cert and fishmeal
+        // 3= no fishmeal
+
         let newRow = {
             feed_name: field.feed_name,
             supplier: field.supplier,
-            supported_species: field.supported_species[0] || 'Contact Supplier',
+            supported_species: speciesName || 'Contact Supplier',
             lifestage: field.fish_lifestage || 'Contact Supplier',
             cost: field.cost_per_kg || 'Contact Supplier',
             sustainability_rating: field.sustainability_rating || Math.floor(Math.random() * Math.floor(6)),
@@ -32,7 +58,6 @@ function processFeedData(responseData) {
     })
     return dataArray;
 }
-
 
 
 export function fetchFeeds(fishType, fishLifeStage, location) {
@@ -49,7 +74,10 @@ export function fetchFeeds(fishType, fishLifeStage, location) {
             cache: 'no-cache'
         })
             .then(responseCallback.bind(this, dispatch))
-            .then((response) => dispatch(feedDataSuccess(processFeedData(response))))
+            .then((response) => {
+                console.log("Response", response);
+                dispatch(feedDataSuccess(processFeedData(response)))
+            })
             .catch(function (error) {
                 console.error(error);
             });
