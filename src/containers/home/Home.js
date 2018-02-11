@@ -17,7 +17,7 @@ import {
     Button
 } from 'react-bootstrap';
 
-class App extends Component {
+class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,13 +41,12 @@ class App extends Component {
     }
 
     handleSubmit(event) {
-        const {fetchFeeds, history} = this.props;
+        const {fetchFeeds, changePage} = this.props;
         const {fishType, fishLifeStage, location} = this.state;
         event.preventDefault();
         //    Will take all data from state and submit the information to the api call
-        console.log("Data: ", fishLifeStage, fishType, location);
         fetchFeeds(fishLifeStage, fishType, location)
-        history.push('/feed');
+            .then(()=> changePage())
     }
 
 
@@ -94,11 +93,12 @@ class App extends Component {
                                         <option value="Fingerling">Fingerling</option>
                                         <option value="Production">Production</option>
                                     </FormControl>
+                                    <ControlLabel>Country of Origin</ControlLabel>
                                     <FormControl
                                         id="formControlsText"
                                         type="text"
                                         label="Location"
-                                        placeholder="Enter Location"
+                                        placeholder="Enter Country of Origin"
                                         onChange={this.handleLocationChange}
                                     />
                                     <Button bsStyle="primary" type="submit">Search</Button>
@@ -120,7 +120,7 @@ const mapStateToProps = state => ({})
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     fetchFeeds,
-    changePage: () => push('/about-us')
+    changePage: () => push('/feed')
 }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

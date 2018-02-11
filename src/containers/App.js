@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom'
-import Home from './home';
+import Home from './home/Home';
 import FeedDashboard from './feed-view/FeedDashboard';
 import logo from '../fish.png';
-import './App.css';
+// import './App.css';
 
 
 const App = () => (

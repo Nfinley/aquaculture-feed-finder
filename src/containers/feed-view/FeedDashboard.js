@@ -1,39 +1,28 @@
-import React, {Component} from 'react'
-import { push } from 'react-router-redux'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {
-    increment,
-    incrementAsync,
-    decrement,
-    decrementAsync
-} from '../../actions/counterAction'
+import React, {Component} from 'react';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import seedData from '../../seedData';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
-import {
-    ButtonToolbar,
-    DropdownButton,
-    MenuItem,
-    Grid,
-    Row,
-    Col,
-    FormGroup,
-    FormControl,
-    ControlLabel,
-    Button
-} from 'react-bootstrap';
-
-class FeedDashboard extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
-
-    }
-
+// Using this for the table http://allenfang.github.io/react-bootstrap-table/example.html
+export class FeedDashboard extends Component {
     render() {
+        const {feedData}= this.props;
         return (
-            <div className="">
-                Hello
+            <div className="table-margin">
+            <BootstrapTable ref='table' data={ feedData } striped hover>
+                <TableHeaderColumn dataField='feed_name' dataSort={ true }  width='200px'>Feed Name</TableHeaderColumn>
+                <TableHeaderColumn dataField='supplier' isKey={ true } dataSort={ true }>Supplier</TableHeaderColumn>
+                <TableHeaderColumn dataField='supported_species' dataSort={ true } width='150px'>Supported Species</TableHeaderColumn>
+                <TableHeaderColumn dataField='lifestage' dataSort={ true }>Life Stage</TableHeaderColumn>
+                <TableHeaderColumn dataField='cost' dataSort={ true }>Cost/kg</TableHeaderColumn>
+                <TableHeaderColumn dataField='sustainability_rating'>Sustainability Rating</TableHeaderColumn>
+                <TableHeaderColumn dataField='certifications' dataSort={ true }>Certifications</TableHeaderColumn>
+                <TableHeaderColumn dataField='location' dataSort={ true }>Location</TableHeaderColumn>
+                <TableHeaderColumn dataField='protein_percentage' dataSort={ true }>Protein %</TableHeaderColumn>
+                <TableHeaderColumn dataField='supplier-link' dataSort={ true }>Contact</TableHeaderColumn>
+            </BootstrapTable>
             </div>
         );
     }
@@ -44,11 +33,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    increment,
-    incrementAsync,
-    decrement,
-    decrementAsync,
-    changePage: () => push('/about-us')
+    changePage: () => push('/feed')
 }, dispatch)
 
 export default connect(
