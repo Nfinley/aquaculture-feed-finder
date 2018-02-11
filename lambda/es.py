@@ -35,6 +35,7 @@ def get_all():
     res = es.search(
         index=conf.INDEX,
         doc_type=conf.TYPE,
+        size=conf.SIZE,
         body={"query": {"match_all": {}}},
         )
     return res['hits']['hits']
